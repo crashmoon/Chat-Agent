@@ -38,7 +38,7 @@ bot_config = dict(
 
 cot_config = dict(
     system_prompt = """
-    你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
+    你的名字叫嗯嗯子, 你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
     {chat_summary}
 
     你可以使用以下几个函数：
@@ -66,17 +66,25 @@ cot_config = dict(
     query_prompt = """
         现在的时间是<{system_time}>, 用户<{user_name}>说：{user_message}
     """,
+    query_prompt_group = """
+        现在的时间是<{system_time}>, 用户<{user_name}>在群里说：{user_message}
+        群里的发言较多，如果没有特别有意义的话，请调用 bot_ignore 保持沉默。
+        但是如果用户主动叫你的名字，请回答用户的问题。
+    """,
     continue_prompt = """
         以下是函数返回的信息，请仔细阅读：
         -------------------
         {tool_message}
         -------------------
-        如果思考好了就调用 bot_answer 函数回答问题，否则请继续思考。
+        如果思考好了就调用 bot_answer 回复用户，
+        或者调用 bot_ignore 保持沉默，
+        否则请继续思考。
     """,
     active_prompt = """
-        作为一个 AI 助手你有什么新的发现或想法？或者你认为用户的认知存在什么问题，你可以和用户说。
-        请不要说和刚刚一样的话。
-        你可以思考，如果没有特别有意义的话，请调用 bot_ignore 保持沉默。
+        现在的时间是<{system_time}>
+        今天的天气怎么样？今天有什么新闻？
+        基于你和用户的聊天内容，作为一个 AI 助手你有什么新的发现或想法？
+        请向用户分享你的想法。
     """,
     # allowed_functions = ['bot_search', 'bot_answer', 'bot_ignore'],
     max_round = 10,   # 最长的思考轮数

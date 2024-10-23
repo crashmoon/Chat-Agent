@@ -3,14 +3,13 @@ import socket
 
 import pynng
 import schedule
+import xybot.utils.xybot as xybot
 import yaml
 from loguru import logger
-from wcferry import wcf_pb2, WxMsg
-
-import utils.xybot as xybot
-from utils.plans_manager import plan_manager
-from utils.plugin_manager import plugin_manager
-from wcferry_helper import *
+from wcferry import WxMsg, wcf_pb2
+from xybot.utils.plans_manager import plan_manager
+from xybot.utils.plugin_manager import plugin_manager
+from xybot.wcferry_helper import *
 
 
 async def recv_msg_async(sock, rsp):

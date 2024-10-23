@@ -29,7 +29,7 @@ def reply_all_friends(msg):
     try:
         sender_name = msg.sender.name  # 获取发送者的名称
         my_friend = bot.friends().search(sender_name)[0]
-        reply = chat_model.get_reply(context={"from_user_id": sender_name}, query=msg.text)
+        reply = chat_model.get_reply(user_name=sender_name, query=msg.text)
         if reply is not None:
             reply = replace_newlines(reply)
             my_friend.send(reply)

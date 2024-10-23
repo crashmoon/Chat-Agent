@@ -8,15 +8,14 @@ import aiohttp
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class weather(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/weather.yml"
+        config_path = "xybot/plugins/command/weather.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 

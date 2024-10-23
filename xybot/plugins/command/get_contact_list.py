@@ -10,20 +10,19 @@ import yaml
 from loguru import logger
 from openpyxl import Workbook
 from wcferry import client
-
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class get_contact_list(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/get_contact_list.yml"
+        config_path = "xybot/plugins/command/get_contact_list.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
         self.excel_save_path = config["excel_save_path"]  # 保存路径
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 

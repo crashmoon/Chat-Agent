@@ -7,15 +7,14 @@ import re
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class admin_whitelist(PluginInterface):
     def __init__(self):
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 

@@ -7,14 +7,13 @@ import re
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class menu(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/menu.yml"
+        config_path = "xybot/plugins/command/menu.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 

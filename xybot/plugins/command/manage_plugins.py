@@ -7,15 +7,14 @@ import re
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.plugin_interface import PluginInterface
-from utils.plugin_manager import plugin_manager
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.utils.plugin_manager import plugin_manager
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class manage_plugins(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/manage_plugins.yml"
+        config_path = "xybot/plugins/command/manage_plugins.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
@@ -24,7 +23,7 @@ class manage_plugins(PluginInterface):
         self.reload_sub_keywords = config['reload_sub_keywords']
         self.list_sub_keywords = config['list_sub_keywords']
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 

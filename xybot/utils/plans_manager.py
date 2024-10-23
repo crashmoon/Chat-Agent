@@ -7,9 +7,8 @@ import os
 
 from loguru import logger
 from wcferry import client
-
-from utils.plans_interface import PlansInterface
-from utils.singleton import singleton
+from xybot.utils.plans_interface import PlansInterface
+from xybot.utils.singleton import singleton
 
 
 @singleton
@@ -19,7 +18,7 @@ class PlansManager:
 
     def load_plan(self, bot: client.Wcf, plan_name):
         if plan_name not in self.plans:
-            module = importlib.import_module(f"plans.{plan_name}")
+            module = importlib.import_module(f"xybot.plans.{plan_name}")
             plan_class = getattr(module, plan_name)
             if issubclass(plan_class, PlansInterface):
                 plan_cinstance = plan_class()

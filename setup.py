@@ -4,5 +4,5 @@ setup(
     name='chat-agent',
     version='1.0',
     author='crashmoon',
-    packages=find_packages(include=['wxpyit', 'chat_agent']),
+    packages=find_packages(include=['wxpyit', 'chat_agent', 'xybot']),
 )

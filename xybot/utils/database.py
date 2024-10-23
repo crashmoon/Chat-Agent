@@ -7,9 +7,7 @@ import sqlite3
 from concurrent.futures import ThreadPoolExecutor
 
 from loguru import logger
-
-from utils.singleton import singleton
-
+from xybot.utils.singleton import singleton
 
 # sb queue内置库没法获取返回值
 

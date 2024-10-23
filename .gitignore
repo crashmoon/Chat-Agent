@@ -185,3 +185,4 @@ private_config.py
 # debugger.py
 # pywxdll_test.py
 # logs/wcf.txt
+userdata.db

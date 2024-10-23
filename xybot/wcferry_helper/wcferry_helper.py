@@ -8,7 +8,7 @@ import time
 from platform import system
 
 import xmltodict
-from wcferry import wxmsg, client
+from wcferry import client, wxmsg
 
 
 def inject(port: int = 5555, debug: bool = False, local: bool = True):
@@ -23,9 +23,9 @@ def inject(port: int = 5555, debug: bool = False, local: bool = True):
 
     sys = system()
     if sys == "Windows":
-        proccess = subprocess.Popen(f"wcferry_helper/injector.exe {port} {debug}", shell=True)
+        proccess = subprocess.Popen(f"xybot/wcferry_helper/injector.exe {port} {debug}", shell=True)
     elif sys == "Linux":
-        proccess = subprocess.Popen(f"wine wcferry_helper/injector.exe {port} {debug}", shell=True)
+        proccess = subprocess.Popen(f"wine xybot/wcferry_helper/injector.exe {port} {debug}", shell=True)
     else:
         raise NotImplementedError(f"Unsupported system: {sys}")
 

@@ -4,22 +4,20 @@
 
 import random
 import re
-from datetime import datetime
-from datetime import timedelta
+from datetime import datetime, timedelta
 
 import pytz
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class sign_in(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/sign_in.yml"
+        config_path = "xybot/plugins/command/sign_in.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
@@ -30,7 +28,7 @@ class sign_in(PluginInterface):
         self.max_lucky_star = config["max_lucky_star"]  # 最大幸运星数
         self.lucky_star_message = config["lucky_star_message"]
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 

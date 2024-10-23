@@ -31,15 +31,15 @@ class ChatModel:
         self.chat_database = chat_database
         logger.info("chatModel init finished")
 
-    def update_chat_memo(self, context, chat_memo):
+    def update_chat_memo(self, name, chat_memo):
         chat_memo = self.make_summary(chat_memo)
         self.chat_database.save_chat(
-            name=context["from_user_id"],
+            name=name,
             chat_memo=chat_memo,
         )
 
-    def get_chat_memo(self, context):
-        return self.chat_database.get_chat_by_name(name=context["from_user_id"])
+    def get_chat_memo(self, name):
+        return self.chat_database.get_chat_by_name(name=name)
 
     #  chat_summary & history_messages
     def make_summary(self, chat_memo):
@@ -59,20 +59,26 @@ class ChatModel:
             chat_memo["history_messages"] = []
         return chat_memo
 
-    def get_reply(self, context, query):
-        cot_model = COT_Model(chat_memo=self.get_chat_memo(context))
-        cot_info = cot_model.run_cot(user_name=context["from_user_id"] ,query=query)
+    def get_reply(self, user_name, query):
+        cot_model = COT_Model(chat_memo=self.get_chat_memo(user_name))
+        cot_info = cot_model.run_cot(user_name=user_name, query=query)
         chat_memo = cot_model.get_chat_memo()
-        self.update_chat_memo(context, chat_memo)
+        self.update_chat_memo(user_name, chat_memo)
         return cot_info
 
-    def active_reply(self, context):
-        cot_model = COT_Model(chat_memo=self.get_chat_memo(context))
-        cot_info = cot_model.active_thinking(user_name=context["from_user_id"])
+    def get_reply_for_group(self, user_name, group_name, query):
+        cot_model = COT_Model(chat_memo=self.get_chat_memo(group_name))
+        cot_info = cot_model.run_cot(user_name=user_name, query=query, is_group=True)
         chat_memo = cot_model.get_chat_memo()
-        self.update_chat_memo(context, chat_memo)
+        self.update_chat_memo(group_name, chat_memo)
         return cot_info
 
+    def active_reply(self, name):
+        cot_model = COT_Model(chat_memo=self.get_chat_memo(name))
+        cot_info = cot_model.active_thinking(user_name=name)
+        chat_memo = cot_model.get_chat_memo()
+        self.update_chat_memo(name, chat_memo)
+        return cot_info
 
 
 
@@ -88,4 +94,5 @@ if __name__ == "__main__":
             query="可以告诉我今天上海的天气吗？",
         )
     )
+
 

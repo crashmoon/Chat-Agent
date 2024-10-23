@@ -7,20 +7,19 @@ import base64
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class bot_status(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/bot_status.yml"
+        config_path = "xybot/plugins/command/bot_status.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
         self.status_message = config["status_message"]  # 状态信息
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 

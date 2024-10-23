@@ -6,10 +6,9 @@ import re
 
 from loguru import logger
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class query_points(PluginInterface):

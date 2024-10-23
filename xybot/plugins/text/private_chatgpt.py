@@ -8,15 +8,14 @@ import yaml
 from loguru import logger
 from openai import AsyncOpenAI
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class private_chatgpt(PluginInterface):
     def __init__(self):
-        config_path = "plugins/text/private_chatgpt.yml"
+        config_path = "xybot/plugins/text/private_chatgpt.yml"
 
         with open(config_path, "r", encoding="utf-8") as f:
             config = yaml.safe_load(f.read())
@@ -31,7 +30,7 @@ class private_chatgpt(PluginInterface):
         self.dialogue_count = config["dialogue_count"]  # 保存的对话轮数
         self.clear_dialogue_keyword = config["clear_dialogue_keyword"]
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 
@@ -40,7 +39,7 @@ class private_chatgpt(PluginInterface):
         self.openai_api_base = main_config["openai_api_base"]  # openai api 链接
         self.openai_api_key = main_config["openai_api_key"]  # openai api 密钥
 
-        sensitive_words_path = "sensitive_words.yml"  # 加载敏感词yml
+        sensitive_words_path = "xybot/sensitive_words.yml"  # 加载敏感词yml
         with open(sensitive_words_path, "r", encoding="utf-8") as f:  # 读取设置
             sensitive_words_config = yaml.safe_load(f.read())
         self.sensitive_words = sensitive_words_config["sensitive_words"]  # 敏感词列表

@@ -8,9 +8,8 @@ import sys
 
 import yaml
 from loguru import logger
-
-from utils.plugin_interface import PluginInterface
-from utils.singleton import singleton
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.utils.singleton import singleton
 
 
 @singleton
@@ -19,7 +18,7 @@ class PluginManager:
         self.plugins = {"command": {}, "text": {}, "mention": {}, "image": {}, "voice": {}, "join_group": {}}
         self.keywords = {}
 
-        with open("main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
+        with open("xybot/main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
         self.excluded_plugins = config["excluded_plugins"]
@@ -99,7 +98,7 @@ class PluginManager:
         logger.info("开始加载所有插件")
 
         for plugin_type in self.all_plugin_types:
-            for plugin_file in os.listdir(f"plugins/{plugin_type}"):
+            for plugin_file in os.listdir(f"xybot/plugins/{plugin_type}"):
                 if plugin_file.endswith(".py") and not plugin_file.startswith("_"):
                     plugin_name = os.path.splitext(plugin_file)[0]
 
@@ -107,7 +106,7 @@ class PluginManager:
                         logger.info(f"! 未加载插件：{plugin_name}，因为它在排除列表中")
 
                     else:
-                        module = importlib.import_module(f"plugins.{plugin_type}.{plugin_name}")  # 导入插件
+                        module = importlib.import_module(f"xybot.plugins.{plugin_type}.{plugin_name}")  # 导入插件
                         plugin_class = getattr(module, plugin_name)  # 获取插件类
                         if issubclass(plugin_class, PluginInterface):  # 判断插件是否是PluginInterface的子类
                             plugin_instance = plugin_class()

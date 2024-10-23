@@ -3,13 +3,13 @@ import socket
 
 import pynng
 import schedule
-import utils.xybot as xybot
+import xybot.utils.xybot as xybot
 import yaml
 from loguru import logger
-from utils.plans_manager import plan_manager
-from utils.plugin_manager import plugin_manager
 from wcferry import WxMsg, wcf_pb2
-from wcferry_helper import *
+from xybot.utils.plans_manager import plan_manager
+from xybot.utils.plugin_manager import plugin_manager
+from xybot.wcferry_helper import *
 
 
 async def recv_msg_async(sock, rsp):
@@ -59,7 +59,7 @@ async def main():
         os.makedirs(cache_path)
         logger.info("已创建cache文件夹")
 
-    with open("main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
+    with open("xybot/main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
         config = yaml.safe_load(f.read())
 
     ip = config["ip"]
@@ -108,7 +108,7 @@ async def main():
     plugin_manager.load_plugins()  # 加载所有插件
     logger.success("已加载所有插件")
 
-    plans_dir = "plans"
+    plans_dir = "xybot/plans"
     plan_manager.load_plans(bot, plans_dir)  # 加载所有计划
 
     asyncio.create_task(plan_run_pending()).add_done_callback(callback)  # 开启计划等待判定线程

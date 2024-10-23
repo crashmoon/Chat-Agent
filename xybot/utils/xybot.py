@@ -7,16 +7,21 @@ import os
 import re
 
 import yaml
+from chat_agent.database.chat_database import ChatDatabase
+from chat_agent.manager.chat_model import ChatModel
+from chat_agent.utils.utils import replace_newlines
 from loguru import logger
-from utils.database import BotDatabase
-from utils.plugin_manager import plugin_manager
 from wcferry import client, wxmsg
-from wcferry_helper import XYBotWxMsg, async_download_image
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_manager import plugin_manager
+from xybot.wcferry_helper import XYBotWxMsg, async_download_image
 
 
 class XYBot:
     def __init__(self, bot: client.Wcf):
-        with open("main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
+        self.chat_database = ChatDatabase()
+        self.chat_model = ChatModel(chat_database=self.chat_database)
+        with open("xybot/main_config.yml", "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
         self.command_prefix = main_config["command_prefix"]  # 命令前缀
         logger.debug(f"指令前缀为(如果是空则不会显示): {self.command_prefix}")
@@ -82,23 +87,23 @@ class XYBot:
 
     async def text_message_handler(self, bot: client.Wcf, recv: XYBotWxMsg) -> None:
         logger.info(f"[收到文本消息]:{recv}")
-
-        recv.roomid   # 群聊 id
-        recv.sender   # 个人 id
-        recv.content  # 消息内容
-
-
-        user_name = bot.get_info_by_wxid(recv.sender)   # 个人
-        nickname = bot.get_alias_in_chatroom(recv.sender, recv.roomid)  # 群聊
-
-
-
-        bot.send_text(out_message, recv.roomid)  # 群聊
-        bot.send_text(out_message, recv.sender)  # 个人
-
-
-
-
+        if recv.from_group():
+            reply = self.chat_model.get_reply_for_group(
+                user_name=bot.get_alias_in_chatroom(recv.sender, recv.roomid),  # 群聊
+                group_name=recv.roomid,
+                query=recv.content,
+            )
+            if reply is not None:
+                reply = replace_newlines(reply)
+                bot.send_text(reply, recv.roomid)
+        else:
+            reply = self.chat_model.get_reply(
+                user_name=bot.get_info_by_wxid(recv.sender),    # 个人
+                query=recv.content,
+            )
+            if reply is not None:
+                reply = replace_newlines(reply)
+                bot.send_text(reply, recv.sender)
         # if not self.ignorance_check(recv):  # 屏蔽检查
         #     return
 

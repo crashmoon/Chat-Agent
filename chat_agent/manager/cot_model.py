@@ -89,8 +89,11 @@ class COT_Model:
             history_messages=self.get_history_messages(),
         )
 
-    def active_thinking(self, user_name):
-        query = cot_config["active_prompt"].format(user_name=user_name)
+    def active_thinking(self):
+        now = datetime.now(pytz.utc)
+        utc_8 = now.astimezone(pytz.timezone('Asia/Shanghai'))
+        system_time = utc_8.strftime("%Y-%m-%d %H:%M:%S")  # 格式化为字符串
+        query = cot_config["active_prompt"].format(system_time=system_time)
         for _ in range(cot_config["max_round"]):
             try:
                 cot_info = self.run(query, CotSchema, self.system_prompt, open_history=True, use_func=False)
@@ -117,11 +120,14 @@ class COT_Model:
                 logger.error(f"Failed to run COT: {e}")
                 return None
 
-    def run_cot(self, user_name, query):
+    def run_cot(self, user_name, query, is_group=False):
         now = datetime.now(pytz.utc)
         utc_8 = now.astimezone(pytz.timezone('Asia/Shanghai'))
         system_time = utc_8.strftime("%Y-%m-%d %H:%M:%S")  # 格式化为字符串
-        query = cot_config["query_prompt"].format(system_time=system_time, user_name=user_name, user_message=query)
+        if is_group:
+            query = cot_config["query_prompt_group"].format(system_time=system_time, user_name=user_name, user_message=query)
+        else:
+            query = cot_config["query_prompt"].format(system_time=system_time, user_name=user_name, user_message=query)
         for _ in range(cot_config["max_round"]):
             try:
                 cot_info = self.run(query, CotSchema, self.system_prompt, open_history=True, use_func=False)

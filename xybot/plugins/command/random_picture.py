@@ -10,20 +10,19 @@ import aiohttp
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class random_picture(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/random_picture.yml"
+        config_path = "xybot/plugins/command/random_picture.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
         self.random_picture_url = config["random_picture_url"]  # 随机图片api
 
-        self.cache_path = "resources/cache"
+        self.cache_path = "xybot/resources/cache"
 
     async def run(self, bot: client.Wcf, recv: XYBotWxMsg):
         recv.content = re.split(" |\u2005", recv.content)  # 拆分消息

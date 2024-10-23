@@ -5,13 +5,12 @@ import schedule
 import yaml
 from loguru import logger
 from wcferry import client
-
-from utils.plans_interface import PlansInterface
+from xybot.utils.plans_interface import PlansInterface
 
 
 class antiautolog(PlansInterface):
     def __init__(self):
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
         self.timezone = main_config["timezone"]

@@ -8,15 +8,14 @@ import yaml
 from loguru import logger
 from openai import AsyncOpenAI
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class gpt(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/gpt.yml"
+        config_path = "xybot/plugins/command/gpt.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
@@ -25,7 +24,7 @@ class gpt(PluginInterface):
         self.gpt_max_token = config["gpt_max_token"]  # gpt 最大token
         self.gpt_temperature = config["gpt_temperature"]  # gpt 温度
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 
@@ -34,7 +33,7 @@ class gpt(PluginInterface):
         self.openai_api_base = main_config["openai_api_base"]  # openai api 链接
         self.openai_api_key = main_config["openai_api_key"]  # openai api 密钥
 
-        sensitive_words_path = "sensitive_words.yml"  # 加载敏感词yml
+        sensitive_words_path = "xybot/sensitive_words.yml"  # 加载敏感词yml
         with open(sensitive_words_path, "r", encoding="utf-8") as f:  # 读取设置
             sensitive_words_config = yaml.safe_load(f.read())
         self.sensitive_words = sensitive_words_config["sensitive_words"]  # 敏感词列表

@@ -11,15 +11,14 @@ import yaml
 from captcha.image import ImageCaptcha
 from loguru import logger
 from wcferry import client
-
-from utils.database import BotDatabase
-from utils.plugin_interface import PluginInterface
-from wcferry_helper import XYBotWxMsg
+from xybot.utils.database import BotDatabase
+from xybot.utils.plugin_interface import PluginInterface
+from xybot.wcferry_helper import XYBotWxMsg
 
 
 class red_packet(PluginInterface):
     def __init__(self):
-        config_path = "plugins/command/red_packet.yml"
+        config_path = "xybot/plugins/command/red_packet.yml"
         with open(config_path, "r", encoding="utf-8") as f:  # 读取设置
             config = yaml.safe_load(f.read())
 
@@ -28,7 +27,7 @@ class red_packet(PluginInterface):
         self.max_packet = config["max_packet"]  # 最大红包数量
         self.max_time = config["max_time"]  # 红包超时时间
 
-        main_config_path = "main_config.yml"
+        main_config_path = "xybot/main_config.yml"
         with open(main_config_path, "r", encoding="utf-8") as f:  # 读取设置
             main_config = yaml.safe_load(f.read())
 
@@ -36,7 +35,7 @@ class red_packet(PluginInterface):
 
         self.db = BotDatabase()  # 实例化机器人数据库类
 
-        cache_path = "resources/cache"  # 检测是否有cache文件夹
+        cache_path = "xybot/resources/cache"  # 检测是否有cache文件夹
         if not os.path.exists(cache_path):
             logger.info("检测到未创建cache缓存文件夹")
             os.makedirs(cache_path)
