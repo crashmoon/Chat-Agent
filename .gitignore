@@ -177,12 +177,9 @@ private_config.py
 
 
 # # XYBot
-# userdata.db
 # gomoku_board.psd
-
-# #Github
-
 # debugger.py
 # pywxdll_test.py
 # logs/wcf.txt
 userdata.db
+resources/cache/

@@ -38,7 +38,7 @@ bot_config = dict(
 
 cot_config = dict(
     system_prompt = """
-    你的名字叫嗯嗯子, 你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
+    你的名字叫嘘嘘子, 你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
     {chat_summary}
 
     你可以使用以下几个函数：
@@ -68,7 +68,7 @@ cot_config = dict(
     """,
     query_prompt_group = """
         现在的时间是<{system_time}>, 用户<{user_name}>在群里说：{user_message}
-        群里的发言较多，如果没有特别有意义的话，请调用 bot_ignore 保持沉默。
+        群里的发言较多，如果你没有非常想说的话，请调用 bot_ignore 保持沉默。
         但是如果用户主动叫你的名字，请回答用户的问题。
     """,
     continue_prompt = """
