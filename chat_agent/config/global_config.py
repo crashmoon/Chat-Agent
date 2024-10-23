@@ -53,6 +53,7 @@ cot_config = dict(
 
     请注意：
     Don’t talk so much nonsense. Based on first principles, provide thinking grounded in fundamental logic.
+    返回的Json字符串的内容应该避免单引号，以免发生格式混淆。
 
     可用 TOOLS 汇总:
     ------
@@ -68,10 +69,10 @@ cot_config = dict(
     """,
     query_prompt_group = """
         现在的时间是<{system_time}>, 用户<{user_name}>在群里说：{user_message}
-        在群聊里的发言要尽可能精简，群里的发言较多，如果大家没有和你说话，请调用 bot_ignore 保持沉默。
-        请注意：
-        1.如果用户主动叫你的名字，请回答用户的问题，否则尽可能高冷。
-        2.如果用户的认知存在问题，你需要指出。
+        群里的发言较多，你不能有太高的发言频率，如果大家没有和你说话，请尽量调用 bot_ignore 保持沉默。
+        下面两种情况你可以发言：
+        1.如果用户主动叫你的名字，请回答用户的问题。
+        2.如果用户的认知存在严重问题，你需要指出。
     """,
     continue_prompt = """
         以下是函数返回的信息，请仔细阅读：
