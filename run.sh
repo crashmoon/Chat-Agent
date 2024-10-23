@@ -4,7 +4,7 @@
 SESSION_NAME="chat-app"
 
 # 定义文件路径变量
-SCRIPT_PATH="/home/csmn/Chat-Agent/app.py"
+SCRIPT_PATH="/home/csmn/Chat-Agent/app_on_xybot.py"
 
 # 杀掉之前名为 $SESSION_NAME 的 tmux 会话
 tmux kill-session -t $SESSION_NAME 2>/dev/null
