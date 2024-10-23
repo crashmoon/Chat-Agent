@@ -1,0 +1,33 @@
+#Version v2.0.0
+bot_version: "v2.0.0"
+
+# XYBot主设置
+
+#如果不知道自己在干什么请别动这两行
+ip: 127.0.0.1
+port: 5678           # 随便改一个没被占用的端口
+
+admins: [ ]
+
+command_prefix: "" #如果需要前缀，则必须为一个字符。如果不需要前缀可设置为空，即 ""。
+
+excluded_plugins: [ "" ]
+
+timezone: "Asia/Shanghai"
+
+# ------------------------------------------------------------------------------ #
+
+# 白名单/黑名单设置
+mode: "none" # 可以是 黑名单blacklist 白名单whitelist 无none
+
+# 请填入群号或者wxid
+blacklist: [ ]
+whitelist: [ ]
+
+# ------------------------------------------------------------------------------ #
+# 全局chatgpt设置，插件使用到，私聊gpt也使用到
+
+#ChatGPT的API网址
+openai_api_base: ""
+#ChatGPT API的Key
+openai_api_key: ""

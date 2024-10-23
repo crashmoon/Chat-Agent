@@ -10,6 +10,7 @@ from typing import Any, Dict, List
 
 import aiohttp
 import numpy as np
+import pytz
 import requests
 from chat_agent.config.global_config import cot_config, llm_config
 from chat_agent.llm_as_function.fn_calling import (function_to_name,
@@ -117,8 +118,9 @@ class COT_Model:
                 return None
 
     def run_cot(self, user_name, query):
-        now = datetime.now()
-        system_time = now.strftime("%Y-%m-%d %H:%M:%S")  # 格式化为字符串
+        now = datetime.now(pytz.utc)
+        utc_8 = now.astimezone(pytz.timezone('Asia/Shanghai'))
+        system_time = utc_8.strftime("%Y-%m-%d %H:%M:%S")  # 格式化为字符串
         query = cot_config["query_prompt"].format(system_time=system_time, user_name=user_name, user_message=query)
         for _ in range(cot_config["max_round"]):
             try:

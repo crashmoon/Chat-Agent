@@ -173,3 +173,15 @@ session.token
 itchat.pkl
 private_config.py
 *.pkl
+
+
+
+# # XYBot
+# userdata.db
+# gomoku_board.psd
+
+# #Github
+
+# debugger.py
+# pywxdll_test.py
+# logs/wcf.txt

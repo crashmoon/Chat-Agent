@@ -19,7 +19,6 @@ erniebot
 yagmail
 akshare
 baostock
-requests
 datetime
 backoff
 flask
@@ -46,3 +45,12 @@ llm2vec
 flash_attn
 requests
 wxpy
+schedule
+PyYAML
+loguru
+wcferry
+pytz
+pillow
+captcha
+pynng
+xmltodict
