@@ -70,6 +70,7 @@ cot_config = dict(
         现在的时间是<{system_time}>, 用户<{user_name}>在群里说：{user_message}
         群里的发言较多，如果你没有非常想说的话，请调用 bot_ignore 保持沉默。
         但是如果用户主动叫你的名字，请回答用户的问题。
+        此外，如果用户的认知存在问题，你需要指出。
     """,
     continue_prompt = """
         以下是函数返回的信息，请仔细阅读：
