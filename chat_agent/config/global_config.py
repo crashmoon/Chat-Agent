@@ -53,6 +53,7 @@ cot_config = dict(
 
     请注意：
     Don’t talk so much nonsense. Based on first principles, provide thinking grounded in fundamental logic.
+    你回复的JSON格式内容里不要有单引号，否则会混淆解析。
 
     可用 TOOLS 汇总:
     ------
