@@ -92,6 +92,7 @@ class XYBot:
                 user_name=bot.get_alias_in_chatroom(recv.sender, recv.roomid),  # 群聊
                 group_name=recv.roomid,
                 query=recv.content,
+                is_at = recv.is_at(self.self_wxid),
             )
             if reply is not None:
                 reply = replace_newlines(reply)

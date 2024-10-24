@@ -66,9 +66,9 @@ class ChatModel:
         self.update_chat_memo(user_name, chat_memo)
         return cot_info
 
-    def get_reply_for_group(self, user_name, group_name, query):
+    def get_reply_for_group(self, user_name, group_name, query, is_at=False):
         cot_model = COT_Model(chat_memo=self.get_chat_memo(group_name))
-        cot_info = cot_model.run_cot(user_name=user_name, query=query, is_group=True)
+        cot_info = cot_model.run_cot(user_name=user_name, query=query, is_group=True, is_at=is_at)
         chat_memo = cot_model.get_chat_memo()
         self.update_chat_memo(group_name, chat_memo)
         return cot_info

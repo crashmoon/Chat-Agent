@@ -120,12 +120,15 @@ class COT_Model:
                 logger.error(f"Failed to run COT: {e}")
                 return None
 
-    def run_cot(self, user_name, query, is_group=False):
+    def run_cot(self, user_name, query, is_group=False, is_at=False):
         now = datetime.now(pytz.utc)
         utc_8 = now.astimezone(pytz.timezone('Asia/Shanghai'))
         system_time = utc_8.strftime("%Y-%m-%d %H:%M:%S")  # 格式化为字符串
         if is_group:
-            query = cot_config["query_prompt_group"].format(system_time=system_time, user_name=user_name, user_message=query)
+            if is_at:
+                query = cot_config["query_prompt_group_at"].format(system_time=system_time, user_name=user_name, user_message=query)
+            else:
+                query = cot_config["query_prompt_group"].format(system_time=system_time, user_name=user_name, user_message=query)
         else:
             query = cot_config["query_prompt"].format(system_time=system_time, user_name=user_name, user_message=query)
         for _ in range(cot_config["max_round"]):
