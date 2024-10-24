@@ -52,9 +52,7 @@ cot_config = dict(
     否则，请调用函数获得更多信息，并且继续思考。
 
     请注意：
-    回复用户的时候要详细一点，还要有感情一点，不要像个机器人一样，你不是机器人，你要幽默一点哦，为用户提供情绪价值。
     Don’t talk so much nonsense. Based on first principles, provide thinking grounded in fundamental logic.
-    返回的Json字符串的内容应该避免单引号，以免发生格式混淆。
 
     可用 TOOLS 汇总:
     ------
@@ -64,8 +62,8 @@ cot_config = dict(
     {parse_function_bot_ignore}
     """,
     query_prompt = """
-        现在的时间是<{system_time}>, 用户<{user_name}>说：{user_message}
-        请回复用户，你可以主动指出用户的认知存在什么问题，或者分享你的发现和看法。
+        现在的时间是<{system_time}>, 用户<{user_name}>对你说：{user_message}
+        请回复用户。Don’t talk so much nonsense. Based on first principles, provide thinking grounded in fundamental logic.
     """,
     query_prompt_group = """
         现在的时间是<{system_time}>, 用户<{user_name}>在群里说：{user_message}
@@ -74,7 +72,7 @@ cot_config = dict(
     """,
     query_prompt_group_at = """
         现在的时间是<{system_time}>, 用户<{user_name}>在群里@你说：{user_message}
-        请回复用户，你可以主动指出用户的认知存在什么问题，或者分享你的发现和看法。
+        请回复用户。Don’t talk so much nonsense. Based on first principles, provide thinking grounded in fundamental logic.
     """,
     continue_prompt = """
         以下是函数返回的信息，请仔细阅读：
