@@ -38,7 +38,7 @@ bot_config = dict(
 
 cot_config = dict(
     system_prompt = """
-    你的名字叫嘘嘘子, 你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
+    你是一名能够执行复杂推理的AI助手, 你在协助我和用户聊天, 你和用户历史对话的总结如下：
     {chat_summary}
 
     你可以使用以下几个函数：
@@ -74,7 +74,7 @@ cot_config = dict(
         但是如果用户主动叫你的名字，请回答用户的问题。
     """,
     query_prompt_group_at = """
-        现在的时间是<{system_time}>, 用户<{user_name}>在群里对你说：{user_message}
+        现在的时间是<{system_time}>, 用户<{user_name}>在群里@你说：{user_message}
         请回复用户，你可以主动指出用户的认知存在什么问题，或者分享你的发现和看法。
     """,
     continue_prompt = """

@@ -88,15 +88,19 @@ class XYBot:
     async def text_message_handler(self, bot: client.Wcf, recv: XYBotWxMsg) -> None:
         logger.info(f"[收到文本消息]:{recv}")
         if recv.from_group():
-            reply = self.chat_model.get_reply_for_group(
-                user_name=bot.get_alias_in_chatroom(recv.sender, recv.roomid),  # 群聊
-                group_name=recv.roomid,
-                query=recv.content,
-                is_at = recv.is_at(self.self_wxid),
-            )
-            if reply is not None:
-                reply = replace_newlines(reply)
-                bot.send_text(reply, recv.roomid)
+            if recv.is_at(self.self_wxid):
+                reply = self.chat_model.get_reply_for_group(
+                    user_name=bot.get_alias_in_chatroom(recv.sender, recv.roomid),  # 群聊
+                    group_name=recv.roomid,
+                    query=recv.content,
+                    is_at = recv.is_at(self.self_wxid),
+                )
+                if reply is not None:
+                    reply = replace_newlines(reply)
+                    bot.send_text(reply, recv.roomid)
+            else:
+                # 没有被 @ 的情况下，不处理
+                pass
         else:
             reply = self.chat_model.get_reply(
                 user_name=bot.get_info_by_wxid(recv.sender),    # 个人
