@@ -2,6 +2,7 @@ import os
 
 import torch
 from private_config import Config
+from chat_agent.utils.utils import is_docker
 
 current_file_directory = os.path.dirname(os.path.realpath(__file__))
 
@@ -9,6 +10,7 @@ current_file_directory = os.path.dirname(os.path.realpath(__file__))
 base_config = dict(
     log_path=os.path.join(".", "logs", "log.log"),
     max_repeat_times=3,
+    is_docker=is_docker(),
 )
 
 llm_config = dict(
@@ -105,7 +107,7 @@ chat_config = dict(
 )
 
 mongo_config = dict(
-    url="mongodb://localhost:27017/",
+    url= "mongodb://host.docker.internal:27017/" if base_config["is_docker"] else "mongodb://localhost:27017/",
     chat_path=os.path.abspath(os.path.join(current_file_directory, "..", "database", "chat_data.json"))
 )
 

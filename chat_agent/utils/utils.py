@@ -147,6 +147,9 @@ def replace_newlines(text):
     """
     return text.replace('/n', '\n')
 
+def is_docker():
+    return os.path.exists('/.dockerenv')
+
 if __name__ == "__main__":
     pass
     # 测试这个函数
