@@ -15,7 +15,6 @@ pip install --upgrade FlagEmbedding
 pip install --upgrade tiktoken
 pip install --upgrade pinecone-client
 pip install --upgrade protobuf
-pip install --upgrade pymongo
 pip install --upgrade erniebot
 pip install --upgrade yagmail
 pip install --upgrade akshare
@@ -62,7 +61,10 @@ pip install --upgrade dateparser
 pip install --upgrade plotly
 pip install --upgrade alive_progress
 pip install --upgrade matplotlib
-pip install --upgrade bson
+pip install --upgrade newspaper3k
+pip install --upgrade pymongo
+pip uninstall bson
+pip install pymongo
 pip install outlines
 conda install hnswlib
 conda install -c conda-forge cupy
