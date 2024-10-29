@@ -1,13 +1,13 @@
 ## Chat-Agent
 A chatbot that can be deployed on WeChat and utilizes COT and React technologies
 
-# 安装各种依赖
+## 安装各种依赖
 cd ./Chat-Agent
 sh requirements.sh
 pip install -e .
 
-# mongoDB 部署
-‘’‘bash
+## mongoDB 部署
+```bash
     cd ~
     wget https://repo.mongodb.org/apt/ubuntu/dists/jammy/mongodb-org/7.0/multiverse/binary-amd64/mongodb-org-server_7.0.3_amd64.deb
     sudo dpkg -i  mongodb-org-server_7.0.3_amd64.deb
@@ -25,43 +25,45 @@ pip install -e .
     net:
         port: 27017
         bindIp: 0.0.0.0
-'''
+```
 
-# wxpyit 部署 （单聊能用，但是群聊有问题）
-'''bash
+## wxpyit 部署 （单聊能用，但是群聊有问题）
+```bash
     # 基于 config-template.py， 创建一个 private_config.py
     python app_on_wxpyit.py
-'''
+```
 
 ## 以下为 ubuntu XYbot 部署, 比较复杂, 但是功能强大
-# 安装 wine
-sudo dpkg --add-architecture i386
-wget -nc https://dl.winehq.org/wine-builds/winehq.key
-sudo apt-key add winehq.key
-sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ lunar main'
-sudo apt-get update
-sudo apt-get install -y wine-stable wine-stable-i386
-sudo apt-get install -y wine64 wine32
-sudo apt-get install -y winehq-stable
+```bash
+    # 安装 wine
+    sudo dpkg --add-architecture i386
+    wget -nc https://dl.winehq.org/wine-builds/winehq.key
+    sudo apt-key add winehq.key
+    sudo add-apt-repository 'deb https://dl.winehq.org/wine-builds/ubuntu/ lunar main'
+    sudo apt-get update
+    sudo apt-get install -y wine-stable wine-stable-i386
+    sudo apt-get install -y wine64 wine32
+    sudo apt-get install -y winehq-stable
 
-# 下载 WeChatSetup-3.9.10.27.exe
-wget https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.27/WeChatSetup-3.9.10.27.exe
-wine WeChatSetup-3.9.10.27.exe
+    # 下载 WeChatSetup-3.9.10.27.exe
+    wget https://github.com/tom-snow/wechat-windows-versions/releases/download/v3.9.10.27/WeChatSetup-3.9.10.27.exe
+    wine WeChatSetup-3.9.10.27.exe
+```
 
-# 先登录，然后运行
-'''bash
+# 运行
+```bash
     # 基于 config-template.py， 创建一个 private_config.py
     python app_on_xybot.py
-'''
+```
 
 # 后台运行（可选）
-'''bash
+```bash
     sh run.sh
-'''
+```
 
 # vnc docker 部署（可选）
 dockerfile
-'''docker
+```docker
     # 使用 Ubuntu 24.04 基础镜像
     FROM ubuntu:24.04
     # 更新包列表并安装工具
@@ -105,10 +107,10 @@ dockerfile
     EXPOSE 5901
     # 启动 VNC 服务器和 Xfce
     CMD ["/usr/local/bin/start_vnc.sh"]
-‘’‘
+```
 
 start_vnc.sh
-'''bash
+```bash
     #!/bin/bash
     # 设置环境变量
     export USER=username  # 修改为新用户 username
@@ -119,29 +121,29 @@ start_vnc.sh
     # tail -f /dev/null
     # 8888 是你将暴露给Web浏览器的WebSocket端口，而 localhost:5901 是你的VNC服务器运行的地址和端口。
     /app/noVNC/utils/novnc_proxy --listen 8888 --vnc localhost:5901
-'''
+```
 
 init.sh
-'''bash
+```bash
     # 注意！执行前请先下载 [noVNC](https://github.com/novnc/noVNC) 到当前目录！
     docker build -t ubuntu24.04-nodejs-vnc .
     docker rm -f username
     # 5911 vnc客户端端口，8888 noVNC 网页控制端口
     docker run -d --name username -p 5911:5901 -p 8888:8888 ubuntu24.04-nodejs-vnc
-'''
+```
 
 # 连接docker命令 (可选)
-'''bash
+```bash
     docker run -d --name username \
     -p 5911:5901 -p 8888:8888 \
     --add-host dldir1.qq.com:127.0.0.1 \
     --add-host=host.docker.internal:<填你的宿主机IP> \
     # --gpus all \  # 可选
     ubuntu24.04-nodejs-vnc tail -f /dev/null
-'''
+```
 
 # vnc 重置脚本 (可选)
-'''bash
+```bash
     # 连接不上用这个
     vncserver -list
     vncserver -kill :1
@@ -150,14 +152,16 @@ init.sh
     sudo rm -rf /tmp/.X1-lock
     sudo sh clean.sh
     vncserver :1
-'''
+```
 
 # 浏览器 vnc 桌面
 http://<你的IP>:8888/vnc.html
 
 
 # 感谢
+
 https://github.com/HenryXiaoYang/XYBot
+
 https://github.com/fxconfig/wxpyit
 
 
